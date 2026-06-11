@@ -11,7 +11,7 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 ## Examples
 
 <details>
- <summary><code>GET</code> <code><b>/scaleLength={scaleLength}</b></code> <code>(returns fret positions for just intonation and scale length of {scaleLength}</code></summary>
+ <summary><code>GET</code> <code><b>/tuningSystem=edo</b></code> <code>(returns scale intervals for 12-EDO scale length of {scaleLength}</code></summary>
 
 ##### Parameters
 
