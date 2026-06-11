@@ -1,0 +1,6 @@
+*.zip
+coverage.*
+main
+bootstrap
+.idea
+pipeline.go
