@@ -63,4 +63,13 @@ resource "aws_lambda_function" "api_lambda_function" {
 resource "aws_lambda_function_url" "api_lambda_function_url" {
   authorization_type = "NONE"
   function_name      = aws_lambda_function.api_lambda_function.function_name
+
+  cors {
+    allow_credentials = false
+    allow_origins     = ["*"]
+    allow_methods     = ["GET"]
+    allow_headers     = ["content-type"]
+    expose_headers    = []
+    max_age           = 86400
+  }
 }
