@@ -40,7 +40,7 @@ resource "aws_s3_object" "api_lambda_function_distribution_bucket_object" {
 }
 
 resource "aws_lambda_function" "api_lambda_function" {
-  function_name    = "${var.product}-api"
+  function_name    = var.product
   role             = aws_iam_role.api_iam_role.arn
   handler          = "bootstrap"
   runtime          = "provided.al2023"
@@ -52,7 +52,7 @@ resource "aws_lambda_function" "api_lambda_function" {
   memory_size      = 128
 
   tags = {
-    Name          = "${var.product}.lambda.api"
+    Name          = "${var.product}.lambda"
     Contact       = var.contact
     Project       = var.product
     Orchestration = var.orchestration
