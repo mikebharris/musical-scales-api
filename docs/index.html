@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Musical Scale Generation API</title>
+  <style>body { margin: 0; padding: 0; }</style>
+</head>
+<body>
+<div id="redoc-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
+<script>
+Redoc.init({
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Musical Scale Generation API",
+    "description": "Returns just and tempered musical scales in JSON or the [Scala](https://www.huygens-fokker.org/scala/) file format.\nBuilt on the [music](https://github.com/mikebharris/music) Go module.\n",
+    "version": "1.0.0",
+    "contact": {
+      "url": "https://github.com/mikebharris/musical-scales-api"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://your-lambda-url.lambda-url.us-east-1.on.aws",
+      "description": "AWS Lambda function URL (replace with your deployed URL)"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Get a musical scale",
+        "description": "Returns the intervals of the requested tuning system as JSON or a Scala file.\nSet `format=scala` to receive a plain-text `.scl` file suitable for import\ninto Scala and compatible software.\n",
+        "operationId": "getScale",
+        "parameters": [
+          {
+            "name": "tuningSystem",
+            "in": "query",
+            "required": true,
+            "description": "The tuning system to use.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "justFromRatios",
+                "pythagorean",
+                "pythagorean5",
+                "ptolemy",
+                "saz",
+                "edo",
+                "meantone",
+                "extendedMeantone",
+                "bachWellTemperament"
+              ]
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "description": "Diatonic mode. Only applies when `tuningSystem=ptolemy`. Defaults to `ionian`.",
+            "schema": {
+              "type": "string",
+              "default": "ionian",
+              "enum": [
+                "lydian",
+                "ionian",
+                "mixolydian",
+                "dorian",
+                "aeolian",
+                "phrygian",
+                "locrian"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Prime limit for just intonation. Only applies when `tuningSystem=justFromRatios`. Common values: 3, 5, 7, 11, 13, 17. Defaults to 5.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 5,
+              "example": 7
+            }
+          },
+          {
+            "name": "divisions",
+            "in": "query",
+            "required": false,
+            "description": "Number of equal divisions of the octave. Only applies when `tuningSystem=edo`. Common values: 12, 19, 23, 31, 53. Defaults to 12.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 12,
+              "example": 31
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "description": "Output format. Omit (or set to `json`) for a JSON response. Set to `scala` to receive a plain-text Scala `.scl` file.",
+            "schema": {
+              "type": "string",
+              "default": "json",
+              "enum": ["json", "scala"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Scale returned successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Scale"
+                },
+                "examples": {
+                  "ptolemy_ionian": {
+                    "summary": "Ptolemy's Intense Diatonic in Ionian mode",
+                    "value": {
+                      "system": "Ptolemy Intense Diatonic",
+                      "description": "Ptolemy's 5-limit intense diatonic scale in Ionian mode.",
+                      "intervals": ["1:1","9:8","5:4","4:3","3:2","5:3","15:8","2:1"]
+                    }
+                  },
+                  "saz": {
+                    "summary": "Turkish Saz tuning",
+                    "value": {
+                      "system": "Turkish Saz",
+                      "description": "Turkish Saz tuning ratios.",
+                      "intervals": ["18:17","12:11","9:8","81:68","27:22","81:64","4:3","24:17","16:11","3:2","27:17","18:11","27:16","16:9","32:17","64:33","2:1"]
+                    }
+                  }
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "examples": {
+                  "saz_scala": {
+                    "summary": "Turkish Saz as a Scala file",
+                    "value": "! saz.scl\n! generated using github.com/mikebharris/music/scala\n!\nSaz scale using Turkish Saz tuning ratios.\n17\n18/17\n12/11\n9/8\n81/68\n27/22\n81/64\n4/3\n24/17\n16/11\n3/2\n27/17\n18/11\n27/16\n16/9\n32/17\n64/33\n2/1\n"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid or missing tuning system.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "please provide a valid tuning system"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Scale": {
+        "type": "object",
+        "required": ["system", "description", "intervals"],
+        "properties": {
+          "system": {
+            "type": "string",
+            "description": "Name of the tuning system.",
+            "example": "Ptolemy Intense Diatonic"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of the scale.",
+            "example": "Ptolemy's 5-limit intense diatonic scale in Ionian mode."
+          },
+          "intervals": {
+            "type": "array",
+            "description": "Scale intervals from unison to octave. Just scales use ratios (`9:8`); tempered scales use cents (`117.13 cents`).",
+            "items": {
+              "type": "string"
+            },
+            "example": ["1:1","9:8","5:4","4:3","3:2","5:3","15:8","2:1"]
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["error"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "please provide a valid tuning system"
+          }
+        }
+      }
+    }
+  }
+}, {}, document.getElementById("redoc-container"));
+</script>
+</body>
+</html>
