@@ -1,4 +1,4 @@
-# Musical Scale Generation API
+# Musical Scale Generation API (AWS Lambda Service)
 
 This simple AWS Lambda function depends on my music theory and practice Go module
 at https://github.com/mikebharris/music. All the computation is done in that module; this project is just a thin wrapper
