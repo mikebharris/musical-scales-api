@@ -18,7 +18,7 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 > | name           | type     | data type | default | description                                                                           |
 > |----------------|----------|-----------|---------|---------------------------------------------------------------------------------------|
 > | `tuningSystem` | required | string    |         | Tuning system to employ                                                               |
-> | `mode`         | optional | string    | ionian  | Which diatonic scale to use for Ptolemy's Intense Diatonic (tuningSystem = 'ptolemy') |
+> | `mode`         | optional | string    | Ionian  | Which diatonic scale to use for Ptolemy's Intense Diatonic (tuningSystem = 'ptolemy') |
 > | `limit`        | optional | int       | 5       | Limit for just intonation (tuningSystem = 'justFromRatios')                           |
 > | `divisions`    | optional | int       | 31      | Number of divisions of the octave for equal temperament (tuningSystem = 'edo')        |
 > | `format`       | optional | string    | json    | Set to "scala" to change the output format to Scala                                   |
@@ -41,13 +41,13 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 
 > | value        | description     |
 > |--------------|-----------------|
-> | `lydian`     | Lydian mode     |
-> | `ionian`     | Ionian mode     |
-> | `mixolydian` | Mixolydian mode |
-> | `dorian`     | Dorian mode     |
-> | `aeloian`    | Aeolian mode    |
-> | `phrygian`   | Phrygian mode   |
-> | `locrian`    | Locrian mode    |
+> | `Lydian`     | Lydian mode     |
+> | `Ionian`     | Ionian mode     |
+> | `Mixolydian` | Mixolydian mode |
+> | `Dorian`     | Dorian mode     |
+> | `Eeloian`    | Aeolian mode    |
+> | `Phrygian`   | Phrygian mode   |
+> | `Locrian`    | Locrian mode    |
 
 ##### Values for `limit`
 
