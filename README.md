@@ -7,6 +7,7 @@ to expose it as a web service.
 The service outputs **just** and **tempered** musical scales in **JSON** or the **Scala** file format (see https://www.huygens-fokker.org/scala/). The Scala file can be imported into Scala itself and various other music programs.
 
 **API documentation:** https://mikebharris.github.io/musical-scales-api/
+**Example web app:** https://mbharris.co.uk/music/theory/scala_generator.html
 
 ## Examples
 
