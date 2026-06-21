@@ -33,14 +33,14 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 > | `harmonic`            | just     | Ratios generated from the Harmonic Series, quantised into semitones to produce the justest 12-note scale |
 > | `justFromRatios`      | just     | 5-limit Just Intonation derived from pure ratios, quantised into semitones with justest ratio chosen     |
 > | `partch`              | just     | Harry Partch's 43-tone "Genesis" scale build on 11-limit tuning                                          |
+> | `ptolemy`             | just     | Ptolemy's Intense Diatonic tuning                                                                        |
 > | `pythagorean`         | just     | Pythagorean 3-limit just tuning                                                                          |
 > | `pythagorean5`        | just     | 5-limit Just Intonation derived from tweaking Pythagorean scale by a syntonic comma                      |
-> | `ptolemy`             | just     | Ptolemy's Intense Diatonic tuning                                                                        |
 > | `saz`                 | just     | Turkish Saz tuning                                                                                       |
 > | `edo`                 | tempered | Equal Temperament (Equal Divisions of the Octave)                                                        |
-> | `meantone`            | tempered | Quarter-Comma Meantone                                                                                   |
-> | `extendedMeantone`    | tempered | Extended Quarter-Comma Meantone                                                                          |
 > | `bachWellTemperament` | tempered | Bach's Well Temperament (as decoded by Bradley Lehman)                                                   |
+> | `extendedMeantone`    | tempered | Extended Quarter-Comma Meantone                                                                          |
+> | `meantone`            | tempered | Quarter-Comma Meantone                                                                                   |
 
 ##### Values for `mode`
 
@@ -56,21 +56,21 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 
 ##### Values for `limit`
 
-> | value   | description                                                          |
-> |---------|----------------------------------------------------------------------|
-> | uint    | A positive integer (usually a prime; common are 3, 5, 7, 11, 13, 17) |
+> | value  | description                                                          |
+> |--------|----------------------------------------------------------------------|
+> | `uint` | A positive integer (usually a prime; common are 3, 5, 7, 11, 13, 17) |
 
 ##### Values for `divisions`
 
-> | value | description                                                            |
-> |-------|------------------------------------------------------------------------|
-> | uint  | Any positive integer (default = 12; common are 19, 23, 31, 53, 54, 55) |
+> | value  | description                                                            |
+> |--------|------------------------------------------------------------------------|
+> | `uint` | Any positive integer (default = 12; common are 19, 23, 31, 53, 54, 55) |
 
 ##### Values for `partials`
 
-> | value | description                                       |
-> |-------|---------------------------------------------------|
-> | uint  | Any positive integer (a good example would be 45) |
+> | value  | description                                       |
+> |--------|---------------------------------------------------|
+> | `uint` | Any positive integer (a good example would be 45) |
 
 ##### Values for `format`
 
