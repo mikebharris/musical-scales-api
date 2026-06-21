@@ -8,6 +8,8 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 
 **API documentation:** https://mikebharris.github.io/musical-scales-api/
 
+**Example web app:** https://mbharris.co.uk/music/theory/scala_generator.html
+
 ## Examples
 
 <details>
