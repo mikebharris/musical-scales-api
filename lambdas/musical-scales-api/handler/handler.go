@@ -49,28 +49,28 @@ func (h Handler) HandleRequest(_ context.Context, request events.LambdaFunctionU
 	var scale music.Scale
 
 	switch q["tuningSystem"] {
-	case "saz":
-		scale = music.NewSazScale()
-	case "partch":
-		scale = music.NewPartch43ToneScale()
-	case "harmonic":
-		scale = music.NewHarmonicSeriesScale(uint(parseIntegerQueryParameter(q, "partials", 1)))
-	case "pythagorean":
-		scale = music.NewPythagoreanScale()
-	case "pythagorean5":
-		scale = music.New5LimitPythagoreanScale()
-	case "ptolemy":
-		scale = music.NewIntenseDiatonicScale(validDiatonicModeOrDefault(parseStringQueryParameter(q, "mode", "")))
-	case "justFromRatios":
-		scale = music.NewJustIntonationChromaticScaleWithLimit(parseIntegerQueryParameter(q, "limit", defaultJustLimit))
-	case "meantone":
-		scale = music.NewQuarterCommaMeantoneScale()
-	case "extendedMeantone":
-		scale = music.NewExtendedQuarterCommaMeantoneScale()
 	case "bachWellTemperament":
 		scale = music.NewBachWohltemperierteKlavierScale()
 	case "edo":
 		scale = music.NewEqualTemperamentScale(uint(parseIntegerQueryParameter(q, "divisions", defaultEqualTemperamentDivisions)))
+	case "extendedMeantone":
+		scale = music.NewExtendedQuarterCommaMeantoneScale()
+	case "harmonic":
+		scale = music.NewHarmonicSeriesScale(uint(parseIntegerQueryParameter(q, "partials", 1)))
+	case "justFromRatios":
+		scale = music.NewJustIntonationChromaticScaleWithLimit(parseIntegerQueryParameter(q, "limit", defaultJustLimit))
+	case "meantone":
+		scale = music.NewQuarterCommaMeantoneScale()
+	case "partch":
+		scale = music.NewPartch43ToneScale()
+	case "ptolemy":
+		scale = music.NewIntenseDiatonicScale(validDiatonicModeOrDefault(parseStringQueryParameter(q, "mode", "")))
+	case "pythagorean":
+		scale = music.NewPythagoreanScale()
+	case "pythagorean5":
+		scale = music.New5LimitPythagoreanScale()
+	case "saz":
+		scale = music.NewSazScale()
 	default:
 		return errorResponse(http.StatusUnprocessableEntity, `{"error":"please provide a valid tuning system"}`), nil
 	}
