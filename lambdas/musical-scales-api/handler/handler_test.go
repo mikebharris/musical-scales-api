@@ -331,6 +331,57 @@ func Test_ShouldReturnNineteenToneEqualTemperamentScale(t *testing.T) {
 	assert.Equal(t, 20, len(scale.Intervals))
 }
 
+func Test_ShouldReturnPartchFortyThreeToneGenesisScale(t *testing.T) {
+	// Given
+	// When
+	response, err := Handler{}.HandleRequest(context.Background(), events.LambdaFunctionURLRequest{
+		QueryStringParameters: map[string]string{"tuningSystem": "partch"}})
+
+	// Then
+	assert.Nil(t, err)
+	assert.Equal(t, response.StatusCode, http.StatusOK)
+	assert.Equal(t, response.Headers, headers)
+
+	var scale Scale
+	_ = json.Unmarshal([]byte(response.Body), &scale)
+	assert.Equal(t, "Harry Partch's 43-tone 11-limit just intonation scale from Genesis of a Music.", scale.Description)
+	assert.Equal(t, 44, len(scale.Intervals))
+}
+
+func Test_ShouldReturnScaleBasedPurelyOnHarmonicSeries(t *testing.T) {
+	// Given
+	// When
+	response, err := Handler{}.HandleRequest(context.Background(), events.LambdaFunctionURLRequest{
+		QueryStringParameters: map[string]string{"tuningSystem": "harmonic", "partials": "45"}})
+
+	// Then
+	assert.Nil(t, err)
+	assert.Equal(t, response.StatusCode, http.StatusOK)
+	assert.Equal(t, response.Headers, headers)
+
+	var scale Scale
+	_ = json.Unmarshal([]byte(response.Body), &scale)
+	assert.Equal(t, "First 45 partials of the harmonic series, octave-reduced to a single octave.", scale.Description)
+	assert.Equal(t, 13, len(scale.Intervals))
+}
+
+func Test_HarmonicSeriesScaleDefaultsToFirstPartial(t *testing.T) {
+	// Given
+	// When
+	response, err := Handler{}.HandleRequest(context.Background(), events.LambdaFunctionURLRequest{
+		QueryStringParameters: map[string]string{"tuningSystem": "harmonic"}})
+
+	// Then
+	assert.Nil(t, err)
+	assert.Equal(t, response.StatusCode, http.StatusOK)
+	assert.Equal(t, response.Headers, headers)
+
+	var scale Scale
+	_ = json.Unmarshal([]byte(response.Body), &scale)
+	assert.Equal(t, "First 1 partials of the harmonic series, octave-reduced to a single octave.", scale.Description)
+	assert.Equal(t, 2, len(scale.Intervals)) // the tonic and the octave
+}
+
 func Test_ShouldReturnTwelveToneEqualTemperamentScaleWhenInvalidNumberOfDivisionsOfOctaveProvided(t *testing.T) {
 	// Given
 	// When

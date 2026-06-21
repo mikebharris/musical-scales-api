@@ -3,8 +3,8 @@ module musical-scales-lambda
 go 1.26.2
 
 require (
-	github.com/aws/aws-lambda-go v1.52.0
-	github.com/mikebharris/music/music v0.4.7
+	github.com/aws/aws-lambda-go v1.54.0
+	github.com/mikebharris/music/music v0.4.9
 	github.com/mikebharris/music/scala v0.1.0
 	github.com/stretchr/testify v1.11.1
 )

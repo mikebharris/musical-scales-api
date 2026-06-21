@@ -19,23 +19,26 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 > |----------------|----------|-----------|---------|---------------------------------------------------------------------------------------|
 > | `tuningSystem` | required | string    |         | Tuning system to employ                                                               |
 > | `mode`         | optional | string    | Ionian  | Which diatonic scale to use for Ptolemy's Intense Diatonic (tuningSystem = 'ptolemy') |
-> | `limit`        | optional | int       | 5       | Limit for just intonation (tuningSystem = 'justFromRatios')                           |
-> | `divisions`    | optional | int       | 31      | Number of divisions of the octave for equal temperament (tuningSystem = 'edo')        |
+> | `limit`        | optional | uint      | 5       | Limit for just intonation (tuningSystem = 'justFromRatios')                           |
+> | `divisions`    | optional | uint      | 31      | Number of divisions of the octave for equal temperament (tuningSystem = 'edo')        |
+> | `partials`     | optional | uint      | 1       | Number of partials of the Harmonic Series to compute (tuningSystem = 'harmonic')      |
 > | `format`       | optional | string    | json    | Set to "scala" to change the output format to Scala                                   |
 
 ##### Values for `tuningSystem`
 
-> | value                 | type     | description                                                                         |
-> |-----------------------|----------|-------------------------------------------------------------------------------------|
-> | `justFromRatios`      | just     | 5-limit Just Intonation derived from pure ratios                                    |
-> | `pythagorean`         | just     | Pythagorean 3-limit just tuning                                                     |
-> | `pythagorean5`        | just     | 5-limit Just Intonation derived from tweaking Pythagorean scale by a syntonic comma |
-> | `ptolemy`             | just     | Ptolemy's Intense Diatonic tuning                                                   |
-> | `saz`                 | just     | Turkish Saz tuning                                                                  |
-> | `edo`                 | tempered | Equal Temperament (Equal Divisions of the Octave)                                   |
-> | `meantone`            | tempered | Quarter-Comma Meantone                                                              |
-> | `extendedMeantone`    | tempered | Extended Quarter-Comma Meantone                                                     |
-> | `bachWellTemperament` | tempered | Bach's Well Temperament (as decoded by Bradley Lehman)                              |
+> | value                 | type     | description                                                                                              |
+> |-----------------------|----------|----------------------------------------------------------------------------------------------------------|
+> | `harmonic`            | just     | Ratios generated from the Harmonic Series, quantised into semitones to produce the justest 12-note scale |
+> | `justFromRatios`      | just     | 5-limit Just Intonation derived from pure ratios, quantised into semitones with justest ratio chosen     |
+> | `partch`              | just     | Harry Partch's 43-tone "Genesis" scale build on 11-limit tuning                                          |
+> | `pythagorean`         | just     | Pythagorean 3-limit just tuning                                                                          |
+> | `pythagorean5`        | just     | 5-limit Just Intonation derived from tweaking Pythagorean scale by a syntonic comma                      |
+> | `ptolemy`             | just     | Ptolemy's Intense Diatonic tuning                                                                        |
+> | `saz`                 | just     | Turkish Saz tuning                                                                                       |
+> | `edo`                 | tempered | Equal Temperament (Equal Divisions of the Octave)                                                        |
+> | `meantone`            | tempered | Quarter-Comma Meantone                                                                                   |
+> | `extendedMeantone`    | tempered | Extended Quarter-Comma Meantone                                                                          |
+> | `bachWellTemperament` | tempered | Bach's Well Temperament (as decoded by Bradley Lehman)                                                   |
 
 ##### Values for `mode`
 
@@ -57,9 +60,15 @@ The service outputs **just** and **tempered** musical scales in **JSON** or the 
 
 ##### Values for `divisions`
 
-> | value | description                                                           |
-> |-------|-----------------------------------------------------------------------|
-> | uint  | Any positive integer (default = 12; common are 19, 23, 31, 53, 54, 55 |
+> | value | description                                                            |
+> |-------|------------------------------------------------------------------------|
+> | uint  | Any positive integer (default = 12; common are 19, 23, 31, 53, 54, 55) |
+
+##### Values for `partials`
+
+> | value | description                                       |
+> |-------|---------------------------------------------------|
+> | uint  | Any positive integer (a good example would be 45) |
 
 ##### Values for `format`
 

@@ -51,6 +51,10 @@ func (h Handler) HandleRequest(_ context.Context, request events.LambdaFunctionU
 	switch q["tuningSystem"] {
 	case "saz":
 		scale = music.NewSazScale()
+	case "partch":
+		scale = music.NewPartch43ToneScale()
+	case "harmonic":
+		scale = music.NewHarmonicSeriesScale(uint(parseIntegerQueryParameter(q, "partials", 1)))
 	case "pythagorean":
 		scale = music.NewPythagoreanScale()
 	case "pythagorean5":
